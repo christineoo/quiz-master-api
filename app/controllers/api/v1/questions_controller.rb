@@ -32,7 +32,7 @@ class Api::V1::QuestionsController < ApplicationController
 
     def check_answer
         answer = Question.find(params[:id]).answer
-        if(answer == params[:inputAnswer])
+        if answer == params[:inputAnswer]
             render json: {status: "ok"}
         else
             render json: {status: "error", expected: answer}
