@@ -22,7 +22,12 @@ class Api::V1::QuestionsController < ApplicationController
     end
 
     def start_quiz
-        render json: {id: Question.first.id, content: Question.first.content}
+        first_question = Question.exists?
+        if first_question
+          render json: {id: first_question.id, content: first_question.content}
+        else
+          render json: {}
+        end
     end
 
     def check_answer
