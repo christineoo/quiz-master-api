@@ -5,6 +5,11 @@ class Api::V1::QuestionsController < ApplicationController
         render json: Question.all
     end
 
+    def show
+      question = Question.find(params[:id])
+      render json: {id: question.id, content: question.content}
+    end
+
     def create
         render json: Question.create(question_params)
     end
@@ -22,20 +27,24 @@ class Api::V1::QuestionsController < ApplicationController
     end
 
     def start_quiz
-        first_question = Question.exists?
-        if first_question
-          render json: {id: first_question.id, content: first_question.content}
+        if Question.exists?
+            first_question = Question.first
+            render json: {id: first_question.id, content: first_question.content}
         else
           render json: {}
         end
     end
 
     def check_answer
-        answer = Question.find(params[:id]).answer
-        if answer == params[:inputAnswer]
-            render json: {status: "ok"}
+        question = Question.find(params[:id])
+        next_question_id = !question.next.nil? ? question.next.id : nil
+
+        isCorrect = question.check_answer?(params[:inputAnswer])
+
+        if isCorrect
+          render json: {result: "ok", expected: question.answer, next_question_id: next_question_id}
         else
-            render json: {status: "error", expected: answer}
+          render json: {result: "error", expected: question.answer, next_question_id: next_question_id}
         end
     end
 
