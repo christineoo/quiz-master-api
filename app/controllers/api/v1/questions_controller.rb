@@ -17,7 +17,7 @@ class Api::V1::QuestionsController < ApplicationController
     def update
         question = Question.find(params[:id])
         question.update(question_params)
-        render json: {status: "ok", message: "Question with id #{params[:id]} has been updated."}
+        render json: question
     end
 
     def destroy
