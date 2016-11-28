@@ -23,7 +23,7 @@ class Api::V1::QuestionsController < ApplicationController
     def destroy
         question = Question.find(params[:id])
         question.destroy
-		render json: {status: "ok", message: "Question with id #{params[:id]} has been deleted."}
+		render json: {result: "ok", message: "Question with id #{params[:id]} has been deleted."}
     end
 
     def start_quiz
