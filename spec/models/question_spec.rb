@@ -8,7 +8,7 @@ RSpec.describe Api::V1::QuestionsController, :type => :model do
       FactoryGirl.create_list(:question, 10)
       id = 9
       question = Question.find(id)
-      expect(question.next.id).to eq(id+1)
+      expect(question.next_id).to eq(id+1)
     end
 
   end

@@ -1,13 +1,14 @@
 class Question < ActiveRecord::Base
 
-  def next
-    Question.where("id > ?", id).first
+  def next_id
+    next_question = Question.where("id > ?", id).first
+    next_question.nil? ? nil: next_question.id
   end
 
   def check_answer?(entered_answer)
     #substitute any numbers entered into words and vice versa.
-    inputAnswer = entered_answer.gsub(/\d+/) { |num| num.to_i.humanize }
-    actualAnswer = Question.find(id).answer.gsub(/\d+/) { |num| num.to_i.humanize }
+    input_answer = entered_answer.gsub(/\d+/) { |num| num.to_i.humanize }
+    actual_answer = Question.find(id).answer.gsub(/\d+/) { |num| num.to_i.humanize }
 
     #convert input and actual answer to lowercase and remove whitespaces
     #Example:
@@ -15,7 +16,7 @@ class Question < ActiveRecord::Base
     #strip = answer.strip returns "This is    an answer"
     #squeeze = answer.squeeze(' ') returns " This is an answer "
     #answer.downcase.strip.squeeze(' ') returns "this is an answer"
-    actualAnswer.downcase.strip.squeeze(' ') == inputAnswer.downcase.strip.squeeze(' ')
+    actual_answer.downcase.strip.squeeze(' ') == input_answer.downcase.strip.squeeze(' ')
   end
 
 end

@@ -37,13 +37,12 @@ class Api::V1::QuestionsController < ApplicationController
 
     def check_answer
         question = Question.find(params[:id])
-        next_question_id = !question.next.nil? ? question.next.id : nil
 
-        isCorrect = question.check_answer?(params[:inputAnswer])
-        if isCorrect
-          render json: {result: "ok", input_answer: params[:inputAnswer], expected: question.answer, next_question_id: next_question_id}
+        is_correct = question.check_answer?(params[:inputAnswer])
+        if is_correct
+          render json: {result: "ok", input_answer: params[:inputAnswer], expected: question.answer, next_question_id: question.next_id}
         else
-          render json: {result: "error", input_answer: params[:inputAnswer], expected: question.answer, next_question_id: next_question_id}
+          render json: {result: "error", input_answer: params[:inputAnswer], expected: question.answer, next_question_id: question.next_id}
         end
     end
 
