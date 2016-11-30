@@ -40,9 +40,9 @@ class Api::V1::QuestionsController < ApplicationController
 
         is_correct = question.check_answer?(params[:inputAnswer])
         if is_correct
-          render json: {result: "ok", input_answer: params[:inputAnswer], expected: question.answer, next_question_id: question.next_id}
+          render json: {result: "ok", expected: question.answer, next_question_id: question.next_id}
         else
-          render json: {result: "error", input_answer: params[:inputAnswer], expected: question.answer, next_question_id: question.next_id}
+          render json: {result: "error", expected: question.answer, next_question_id: question.next_id}
         end
     end
 
