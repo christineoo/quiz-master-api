@@ -55,6 +55,20 @@ RSpec.describe Api::V1::QuestionsController, :type => :controller do
     end
   end
 
+  describe "POST #create with empty content and answer params" do
+    it 'response with the newly created question' do
+      # act
+      post :create, {:question => {:content => "", :answer => ""} }
+
+      # verify
+      json = JSON(response.body)
+      expect(response).to have_http_status(400)
+      expect(json["errors"]).to eq(["Content can't be blank", "Answer can't be blank"])
+
+      # teardown handled by rspec
+    end
+  end
+
   describe "PUT #update/:id" do
     it 'should response with update successful message' do
       # setup

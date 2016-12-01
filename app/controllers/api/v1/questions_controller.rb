@@ -11,19 +11,28 @@ class Api::V1::QuestionsController < ApplicationController
     end
 
     def create
-        render json: Question.create(question_params)
+        new_question = Question.create(question_params)
+        if new_question.valid?
+            render json: Question.create(question_params)
+        else
+            render :json => { :errors => new_question.errors.full_messages }, :status => 400
+        end
     end
 
     def update
         question = Question.find(params[:id])
-        question.update(question_params)
-        render json: question
+        update_question = question.update(question_params)
+        if update_question
+            render json: question
+        else
+            render :json => {:errors => question.errors.full_messages}, :status => 400
+        end
     end
 
     def destroy
         question = Question.find(params[:id])
         question.destroy
-		render json: {result: "ok", message: "Question with id #{params[:id]} has been deleted."}
+        render json: {result: "ok", message: "Question with id #{params[:id]} has been deleted."}
     end
 
     def start_quiz

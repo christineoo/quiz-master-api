@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  validates :content, :answer, presence: true, allow_blank: false
 
   def next_id
     next_question = Question.where("id > ?", id).first
