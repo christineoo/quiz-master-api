@@ -42,7 +42,7 @@ RSpec.describe Api::V1::QuestionsController, :type => :controller do
       question = FactoryGirl.create(:question)
 
       # act
-      post :create, {:question => {:content => question.content, :answer => question.answer} }
+      post :create, {:question => {:content => question.content, :answer => question.answer}}
 
       # verify
       json = JSON(response.body)
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::QuestionsController, :type => :controller do
   describe "POST #create with empty content and answer params" do
     it 'response with the newly created question' do
       # act
-      post :create, {:question => {:content => "", :answer => ""} }
+      post :create, {:question => {:content => "", :answer => ""}}
 
       # verify
       json = JSON(response.body)

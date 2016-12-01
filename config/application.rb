@@ -9,11 +9,11 @@ Bundler.require(*Rails.groups)
 module QuizMaster
   class Application < Rails::Application
     config.middleware.insert_before 0, "Rack::Cors" do
-          allow do
-            origins 'localhost:8080', 'https://christineoo.github.io'
-            resource '*', :headers => :any, :methods => [:get, :post, :put, :options, :delete]
-          end
-        end
+      allow do
+        origins 'localhost:8080', 'https://christineoo.github.io'
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :options, :delete]
+      end
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

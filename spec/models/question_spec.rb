@@ -15,27 +15,27 @@ RSpec.describe Api::V1::QuestionsController, :type => :model do
 
   describe "check_answer?" do
     it 'return true if answer is correct' do
-      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: '4' )
+      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: '4')
       expect(question.check_answer?('4')).to eq(true)
     end
 
     it 'return false if answer is incorrect' do
-      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: '4' )
+      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: '4')
       expect(question.check_answer?('6')).to eq(false)
     end
 
     it 'should detect number and words as a correct answer' do
-      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: 'four' )
+      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: 'four')
       expect(question.check_answer?('4')).to eq(true)
     end
 
     it 'should ignore whitespaces from answer' do
-      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: '  This is    4    ' )
+      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: '  This is    4    ')
       expect(question.check_answer?('This     is four')).to eq(true)
     end
 
     it 'should be case insensitive' do
-      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: 'FoUr' )
+      question = FactoryGirl.create(:question, content: "What is the result of 2+2?", answer: 'FoUr')
       expect(question.check_answer?('fOuR')).to eq(true)
     end
   end

@@ -3,7 +3,7 @@ class Question < ActiveRecord::Base
 
   def next_id
     next_question = Question.where("id > ?", id).first
-    next_question.nil? ? nil: next_question.id
+    next_question.nil? ? nil : next_question.id
   end
 
   def check_answer?(entered_answer)
