@@ -1,28 +1,92 @@
-== README
+== API for Quiz Master Application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application supplies the necessary APIs for Quiz Master Application. This application is currently deployed to Heroku. 
+The root API URL is https://quiz-master-test.herokuapp.com
 
-Things you may want to cover:
+=== Run locally
 
-* Ruby version
+* git clone https://github.com/christineoo/quiz-master-api.git
+* bundle install
+* rake db:migrate
+* rails server or rails s
+* bundle exec rspec (to run the rspec test)
 
-* System dependencies
+=== List of available APIs
+* <code>GET /api/v1/questions</code>
+  * Get all questions
+* <code>GET /api/v1/questions/:id</code>
+  * Get a question based on given id
+* <code>POST /api/v1/questions</code>
+  * Create a new question
+  
+  Example: *POST* /api/v1/questions
+  
+          Request Payload:
+          {  
+            "content":"<p>This is a new question</p>",
+            "answer":"This is an answer"
+          }
+          Reponse status 200:
+          {  
+            "answer":"This is an answer",
+            "content":"<p>This is a new question</p>",
+            "created_at":"2016-12-04T09:47:03.771Z",
+            "id":19,
+            "updated_at":"2016-12-04T09:47:03.771Z"
+          }
+          
+* <code>PUT /api/v1/questions/:id</code>
+  * Update question based on question id
+  
+  Example: *PUT* /api/v1/questions/19
+          Request Payload:
+          {  
+             "id":19,
+             "content":"<p>This is an edited question</p>",
+             "answer":"This is an edited answer"
+          }  
+          Reponse status 200:
+          {  
+             "id":19,
+             "content":"<p>This is an <strong>edited</strong> question</p>",
+             "answer":"This is an edited answer",
+             "created_at":"2016-12-04T09:47:03.771Z",
+             "updated_at":"2016-12-04T09:57:09.701Z"
+          }
+          
+* <code>DELETE /api/v1/questions/:id</code>
+  * Delete question based on given ID. This will permanently remove the question from the database.
+  Example: *DELETE* /api/v1/questions/12
+        Response status 200:
+        {  
+           "result":"ok",
+           "message":"Question with id 12 has been deleted."
+        }
+        
+* <code>GET /api/v1/start_quiz</code>
+  * Get first question from the database when user goes into quiz mode.
+* <code>POST /api/v1/check_answer/:id</code>
+  * Check if the answer submitted by user is correct or incorrect.
+ 
+  Example: *POST* /api/v1/check_answer/1
 
-* Configuration
+          Request Payload:
+          {  
+            "inputAnswer":"twenty-six"
+          }
 
-* Database creation
+          Response 200:
+          {  
+            "result":"ok",
+            "expected":"26",
+            "next_question_id":2
+          }
 
-* Database initialization
+== Database
+* Development/Test: Using sqlite3
 
-* How to run the test suite
+* Production: Using postgres
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+== Future improvements
+* Setup development to use postgres so that dev db setup is similar to production db.
+* Setup staging environment, currently there are only development and production environment.
