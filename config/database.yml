@@ -4,6 +4,8 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
+
+# TODO: Setup development to use postgres so that dev db setup is similar to production db.
 default: &default
   adapter: sqlite3
   pool: 5
@@ -20,6 +22,5 @@ test:
   <<: *default
   database: db/test.sqlite3
 
-production:
-  <<: *default
-  database: db/production.sqlite3
+# production database is setup using postgres addon from Heroku.
+# Link to setup postgres in Heroku: https://devcenter.heroku.com/articles/heroku-postgresql
