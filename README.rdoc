@@ -6,10 +6,10 @@ The root API URL is https://quiz-master-test.herokuapp.com
 === Run locally
 
 * git clone https://github.com/christineoo/quiz-master-api.git
-* bundle install
-* rake db:migrate
-* rails server or rails s
-* bundle exec rspec (to run the rspec test)
+* <code>bundle install</code>
+* <code>rake db:migrate</code>
+* <code>rails server or rails s</code>
+* <code>bundle exec rspec (to run the rspec test)</code>
 
 === List of available APIs
 * <code>GET /api/v1/questions</code>
@@ -88,5 +88,15 @@ The root API URL is https://quiz-master-test.herokuapp.com
 * Production: Using postgres
 
 == Future improvements
+=== Infrastructure 
 * Setup development to use postgres so that dev db setup is similar to production db.
 * Setup staging environment, currently there are only development and production environment.
+* Setup CI server, using Travis as it is an open source project.
+* Improve documentation in a more scallable manner.
+
+=== Features
+* Implement login to allow admin users to manage questions and standard user to only see the quiz mode.
+* Implement pagination for questions list to improve loading time for questions list.
+* APIs to support batch delete so that user can delete multiple questions at a time.
+* Save user's progress so that user can have a record of their quiz result.
+
