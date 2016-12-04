@@ -13,7 +13,7 @@ class Api::V1::QuestionsController < ApplicationController
   def create
     new_question = Question.create(question_params)
     if new_question.valid?
-      render json: Question.create(question_params)
+      render json: new_question
     else
       render :json => {:errors => new_question.errors.full_messages}, :status => 400
     end
